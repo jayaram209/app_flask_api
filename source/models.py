@@ -1,21 +1,23 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
  
 db =SQLAlchemy()
  
-class EmployeeModel(db.Model):
-    __tablename__ = "employee_table"
+class OrderssModel(db.Model):
+    __tablename__ = "order_table"
  
-    id = db.Column(db.Integer, primary_key=True)
-    employee_id = db.Column(db.Integer(),unique = True)
-    name = db.Column(db.String())
-    age = db.Column(db.Integer())
-    position = db.Column(db.String(80))
+    order_id = db.Column(db.String(50),unique = True, primary_key=True)
+    order_date_time = db.Column(db.DateTime(), server_default = datetime.now().strftime("%D %T"))
+    order_type = db.Column(db.String(30))
+    order_status = db.Column(db.String(80), server_default = "PENDING")
+    gmv = db.Column(db.Float())
  
-    def __init__(self, employee_id,name,age,position):
-        self.employee_id = employee_id
-        self.name = name
-        self.age = age
-        self.position = position
+    # def __init__(self, order_id, order_date_time, order_type,order_status,gmv):
+    #     self.order_id = order_id
+    #     self.order_date_time = order_date_time
+    #     self.order_type = order_type
+    #     self.order_status = order_status
+    #     self.gmv = gmv
  
     def __repr__(self):
-        return f"{self.name}:{self.employee_id}"
+        return f"{self.order_id}"
