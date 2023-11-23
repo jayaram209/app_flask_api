@@ -2,12 +2,29 @@ from flask import Flask, render_template, request, redirect, jsonify
 from models import db, OrderssModel
 from flask_sqlalchemy import SQLAlchemy
 import json
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://default:default1@localhost:5432/postgres"
+env_name = 'TEST'
+
+if env_name == 'TEST':
+    load_dotenv(".env.dev")
+elif env_name == 'ACC':
+    load_dotenv(".env.acc")
+elif env_name == 'PROD':
+    load_dotenv(".env")
+
+server=os.getenv('server')
+database=os.getenv('database')
+user=os.getenv('user')
+password=os.getenv('password')
+port=os.getenv('port')
+
+DB_URL = f"postgresql://{user}:{password}@{server}:{port}/{database}"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.app_context().push()
