@@ -7,20 +7,20 @@ import os
 
 app = Flask(__name__)
 
-env_name = 'TEST'
+env_name = "TEST"
 
-if env_name == 'TEST':
+if env_name == "TEST":
     load_dotenv(".env.dev")
-elif env_name == 'ACC':
+elif env_name == "ACC":
     load_dotenv(".env.acc")
-elif env_name == 'PROD':
+elif env_name == "PROD":
     load_dotenv(".env")
 
-server=os.getenv('server')
-database=os.getenv('database')
-user=os.getenv('user')
-password=os.getenv('password')
-port=os.getenv('port')
+server = os.getenv("server")
+database = os.getenv("database")
+user = os.getenv("user")
+password = os.getenv("password")
+port = os.getenv("port")
 
 DB_URL = f"postgresql://{user}:{password}@{server}:{port}/{database}"
 
